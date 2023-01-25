@@ -58,9 +58,9 @@ class UserAppointmentDetails(MethodView):
         if not appointment:
             return { 'error' : 'Appointment not found' }, 404
         
-        appointment = schema.dump(appointment)
+        appointment_schema = schema.dump(appointment)
 
-        if appointment['user_id'] != user_id:
+        if appointment_schema['user_id'] != user_id:
             return { 'error' : 'Unathorized access to appointment.'}, 401
 
         return schema.dump(appointment), 200
@@ -75,11 +75,13 @@ class UserAppointmentDetails(MethodView):
         appointment = Appointment.query.get(id)
         if not appointment:
             return { 'error' : 'Appointment not found' }, 404
+        
+        appointment_schema = schema.dump(appointment)
 
-        if appointment['user_id'] != user_id:
+        if appointment_schema['user_id'] != user_id: 
             return { 'error' : 'Unathorized access to appointment.'}, 401
         
-        appointment.remove(appointment)
+        appointment.delete(appointment)
 
         return {}, 204
         
