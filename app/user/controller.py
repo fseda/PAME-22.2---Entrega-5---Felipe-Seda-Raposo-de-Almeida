@@ -1,9 +1,10 @@
 from flask import request
 from flask.views import MethodView
+from datetime import datetime
 
 from .models import User
 from .schemas import UserSchema
-from .utils import validate_data
+# from .utils import validate_data
 
 class UserController(MethodView):
 
@@ -24,7 +25,6 @@ class UserController(MethodView):
 
         email_already_in_use = UserDetails.get_by_email(data['email'])
 
-        print(email_already_in_use)
         if email_already_in_use:
             return { 'error': 'Email address already in use.'}, 400
 
