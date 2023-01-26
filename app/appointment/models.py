@@ -4,11 +4,11 @@ from app.extensions import db
 class Appointment(BaseModel):
     __tablename__ = 'Appointment'
 
-    id = db.Column(db.Integer, primary_key=True)
-    start = db.Column(db.String)
+    id = db.Column(db.Integer, primary_key=True, name='pk_Appointment')
+    start = db.Column(db.String(30))
     # end = db.Column(db.String)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id', name='fk_Appointment_id_User', ondelete='CASCADE'), nullable=False)
 
 
 

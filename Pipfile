@@ -8,6 +8,9 @@ flask-marshmallow = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 marshmallow-sqlalchemy = "*"
+flask-jwt-extended = "*"
+bcrypt = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

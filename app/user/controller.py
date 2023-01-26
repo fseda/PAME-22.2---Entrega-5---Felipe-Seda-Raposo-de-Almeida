@@ -1,10 +1,13 @@
 from flask import request
 from flask.views import MethodView
-from datetime import datetime
+from flask_jwt_extended import create_access_token, jwt_required
+import datetime
 
 from .models import User
-from .schemas import UserSchema
+from .schemas import UserSchema, LoginSchema
+
 # from .utils import validate_data
+
 
 class UserController(MethodView):
 
@@ -41,6 +44,8 @@ class UserController(MethodView):
         return schema.dump(user), 201
 
 class UserDetails(MethodView):
+
+    decorators = [jwt_required()]
 
     def get(self, id):
         schema = UserSchema()
@@ -129,3 +134,19 @@ class UserDetails(MethodView):
         user.delete(user)
 
         return {}, 204
+
+class UserLogin(MethodView):
+    def post(self):
+        schema = LoginSchema()
+        data = schema.load(request.json)
+
+        user = User.query.filter_by(email=data['email']).first()
+        if not user:
+            return { 'error': 'User not found' }, 404
+        
+        if not user.check_password(data['password']):
+            return { 'error': 'Invalid password' }, 401
+
+        token = create_access_token(identity=user.id, expires_delta=datetime.timedelta(hours=2))
+        
+        return { 'user': UserSchema().dump(user), 'token': token }, 200
