@@ -12,7 +12,7 @@ class UserSchema(ma.SQLAlchemySchema):
 
     id = ma.Integer(dump_only=True)
     full_name = ma.String(required=True)
-    # birthday = ma.DateTime(required=True)
+    birthday = ma.DateTime(required=True)
     cpf = ma.String(required=True)
     phone_number = ma.String(required=True)
     email = ma.String(required=True)

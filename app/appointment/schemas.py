@@ -10,7 +10,7 @@ class AppointmentSchema(ma.SQLAlchemySchema):
         ordered = True
 
     id = ma.Integer(dump_only=True)
-    start = ma.String(required=True)
-    # end = ma.DateTime()
+    start = ma.DateTime(required=True)
+    end = ma.DateTime(required=True)
     
     user_id = ma.Integer()

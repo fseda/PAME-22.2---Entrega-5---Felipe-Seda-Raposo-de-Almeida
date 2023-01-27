@@ -8,7 +8,7 @@ class User(BaseModel):
 
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(20))
-    # birthday = db.Column(db.DateTime)
+    birthday = db.Column(db.DateTime)
     cpf = db.Column(db.String(11))
     phone_number = db.Column(db.String(12))
     email = db.Column(db.String(100))
